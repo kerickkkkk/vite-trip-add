@@ -56,6 +56,10 @@ const submitHandler = () => {
             placeholder="請再次輸入">
         </div>
         <button @click.prevent="submitHandler" type="submit" class="btn btn-primary">送出</button>
+        <div>
+            有帳號嗎？
+            <router-link to="/register">登入</router-link>
+        </div>
     </form>
 </div>
 </template>

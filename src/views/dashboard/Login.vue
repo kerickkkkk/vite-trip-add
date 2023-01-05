@@ -26,6 +26,9 @@ axios.get(`${url}/users`)
             <input v-model="password" type="password" class="form-control" id="password">
         </div>
         <button type="submit" class="btn btn-primary">送出</button>
+        <div>沒有帳號嗎？
+            <router-link to="/register">註冊去</router-link>
+        </div>
     </form>
 </div>
 </template>
