@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav ms-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <router-link class="nav-link active" aria-current="page" to="/login">登入</router-link>
+              <router-link class="nav-link active" aria-current="page" to="/">前往前台</router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
@@ -26,6 +26,6 @@
 </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

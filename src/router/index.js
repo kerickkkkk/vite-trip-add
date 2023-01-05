@@ -4,7 +4,8 @@ const routes = [
     {
         name: 'app',
         path: '/',
-        component: () => import('@/views/frontend/Index.vue')
+        component: () => import('@/views/frontend/Index.vue'),
+        children:[]
     },
     {
         name: 'register',
@@ -16,6 +17,24 @@ const routes = [
         path: '/login',
         component: () => import('@/views/dashboard/Login.vue')
     },
+    {
+        name: 'dashboard',
+        path: '/admin',
+        component: () => import('@/views/dashboard/DashboardEntry.vue'),
+        children:[
+            {
+                name: 'admin',
+                path: '',
+                component: () => import('@/views/dashboard/DashboardIndex.vue'),
+            }
+        ]
+    },
+    // 404
+    // {
+    //     path: '/:pathMatch(.*)*',
+    //     component: () => import('@/views/NotFound.vue/')
+    // }
+
 ]
 
 const router = createRouter({
