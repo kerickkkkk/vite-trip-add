@@ -16,7 +16,7 @@
               <router-link class="nav-link active" aria-current="page" to="/">前往前台</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <router-link class="nav-link active" aria-current="page" to="/admin/products">景點列表</router-link>
             </li>
           </ul>
         </div>
