@@ -58,7 +58,7 @@ const submitHandler = () => {
         <button @click.prevent="submitHandler" type="submit" class="btn btn-primary">送出</button>
         <div>
             有帳號嗎？
-            <router-link to="/register">登入</router-link>
+            <router-link to="/login">登入</router-link>
         </div>
     </form>
 </div>
