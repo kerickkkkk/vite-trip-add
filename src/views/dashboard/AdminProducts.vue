@@ -3,22 +3,25 @@ import { ref, onMounted, inject } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import Modal from 'bootstrap/js/dist/modal'
-const {VITE_BASE_URL : baseUrl} = import.meta.env
+import Image from '@/components/pure/Image.vue'
+const baseUrl = import.meta.env.VITE_BASE_URL
 
 
 const router = useRouter()
 const swal = inject('$swal')
 const token = localStorage.getItem('token')
-const products = ref([])
 let addEditModal = null
 
-const addEditModalDom = ref(null)
-const tempProduct = ref({
+const baseProduct = {
     title: '',
-    url: '',
+    imageUrl: '',
     content: '',
     isEnabled: false,
-})
+}
+
+const products = ref([])
+const addEditModalDom = ref(null)
+const tempProduct = ref({...baseProduct})
 const modelType = ref('')
 
 const getProducts = () => {
@@ -41,20 +44,15 @@ const addEditModalOpen = (type, product) => {
 }
 
 const resetProducts = () => {
-    tempProduct.value = {
-        title: '' ,
-        url: '' ,
-        content: '' ,
-        isEnabled: false,
-    }
+    tempProduct.value = { ...baseProduct }
     addEditModal.hide()
 }
 const addEditProduct = () => {
     const data = {
         title: tempProduct.value.title ,
-        url: tempProduct.value.url ,
+        imageUrl: tempProduct.value.imageUrl ,
         content: tempProduct.value.content ,
-        isEnabled: false,
+        isEnabled: tempProduct.value.isEnabled,
     }
     const method  = modelType.value === 'new' ? 'POST' : 'PATCH'
     const url =  `${baseUrl}/products${ modelType.value === 'new' ? '' : `/${tempProduct.value.id}` }`
@@ -66,7 +64,6 @@ const addEditProduct = () => {
         },
         data
     }).then(res => {
-        console.log(res)
         resetProducts()
         getProducts()
     }).catch( (error) => {
@@ -117,8 +114,8 @@ onMounted(()=>{
                         <input v-model="tempProduct.title" type="text" class="form-control" id="title">
                     </div>
                     <div class="mb-3">
-                        <label for="url" class="form-label">連結</label>
-                        <input  v-model="tempProduct.url" type="text" class="form-control" id="url">
+                        <label for="url" class="form-label">圖片連結</label>
+                        <input  v-model="tempProduct.imageUrl" type="text" class="form-control" id="url">
                     </div>
                     <div class="mb-3">
                         <label for="content" class="form-label">內容</label>
@@ -146,7 +143,7 @@ onMounted(()=>{
             <thead>
                 <tr>
                     <th>標題</th>
-                    <th>連結</th>
+                    <th>圖片連結</th>
                     <th>內容</th>
                     <th>啟用</th>
                     <th>編輯</th>
@@ -156,11 +153,33 @@ onMounted(()=>{
                 <template v-if="products.length > 0">
                     <tr v-for="product in products" :key="product.id">
                         <td>{{ product.title }}</td>
-                        <td>{{ product.url }}</td>
-                        <td>{{ product.content }}</td>
-                        <td>參考</td>
                         <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
+                            <Image :src="product.imageUrl" style="width: 100px;"></Image>
+                        </td>
+                        <td>{{ product.content }}</td>
+                        <td>
+                            <!-- 暫時備用 -->
+                            <!-- 注意這邊需要用 checked -->
+                            <!-- <div class="form-check form-switch">
+                                <input
+                                    :id="`customSwitch${product.id}`"
+                                    :checked="product.isEnabled"
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    @change="enableProduct(product.id)"
+                                >
+                                <label
+                                    class="form-check-label"
+                                    :class="{'text-success': product.isEnabled }"
+                                    :for="`customSwitch${ product.id }`"
+                                >{{ product.isEnabled ? "啟用" : "未啟用" }}</label>
+                            </div> -->
+                            <div :class="{'text-success': product.isEnabled }">
+                                {{ product.isEnabled ? "啟用" : "未啟用" }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
                                 <button @click="addEditModalOpen('edit', product)" type="button" class="btn btn-sm btn-outline-success">編輯</button>
                                 <button @click="deleteProduct(product.id)" type="button" class="btn btn-sm btn-outline-danger">刪除</button>
                             </div>
