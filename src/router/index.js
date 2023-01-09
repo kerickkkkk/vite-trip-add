@@ -5,7 +5,23 @@ const routes = [
         name: 'app',
         path: '/',
         component: () => import('@/views/frontend/Index.vue'),
-        children:[]
+        children:[
+            {
+                name: 'products',
+                path: 'products',
+                component: () => import('@/views/frontend/Products.vue')
+            },
+            {
+                name: 'product',
+                path: 'product/:id',
+                component: () => import('@/views/frontend/Product.vue')
+            },
+            {
+                name: 'favorite',
+                path: 'favorite',
+                component: () => import('@/views/frontend/Favorites.vue')
+            },
+        ]
     },
     {
         name: 'register',
@@ -26,6 +42,11 @@ const routes = [
                 name: 'admin',
                 path: '',
                 component: () => import('@/views/dashboard/DashboardIndex.vue'),
+            },
+            {
+                name: 'adminProducts',
+                path: 'products',
+                component: () => import('@/views/dashboard/AdminProducts.vue'),
             }
         ]
     },
