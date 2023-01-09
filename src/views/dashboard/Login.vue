@@ -1,13 +1,16 @@
 <script setup>
 import { ref, inject } from 'vue'
 import axios from 'axios'
-import { useRouter, useRoute } from 'vue-router'
+import { useUserStore } from '@/stores/users'
+import { useRouter } from 'vue-router'
+
+const store = useUserStore()
 
 const router = useRouter()
 const swal = inject('$swal')
 
-const {VITE_BASE_URL : url} = import.meta.env
-const email = ref('dragon@mail.com')
+const url = import.meta.env.VITE_BASE_URL
+const email = ref('admin@mail.com')
 const password = ref('123456')
 
 const submitHandler = () => {
@@ -18,7 +21,12 @@ const submitHandler = () => {
     axios.post(`${url}/login`, params)
         .then(({data}) => {
             const {accessToken: token, user} = data
-            localStorage.setItem('trip-token', token)
+            const toLocalStorage = {
+                user, token
+            }
+            localStorage.setItem('ttshop', JSON.stringify(toLocalStorage))
+            store.user = user
+            store.token = token
             router.push({
                 name: `${ user?.role?.includes('admin') ? 'admin' : 'app'}`
             })
