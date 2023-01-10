@@ -25,8 +25,6 @@ const submitHandler = () => {
                 user, token
             }
             localStorage.setItem('ttshop', JSON.stringify(toLocalStorage))
-            store.user = user
-            store.token = token
             router.push({
                 name: `${ user?.role?.includes('admin') ? 'admin' : 'index'}`
             })
