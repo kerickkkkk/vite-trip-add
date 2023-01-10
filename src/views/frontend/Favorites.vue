@@ -19,7 +19,6 @@ const getFavorites = () => {
       },
   }).then(({data}) => {
     favorites.value = data
-    console.log(data)
   }).catch( (error) => {
       console.dir(error)
       swal(error?.response?.data)
