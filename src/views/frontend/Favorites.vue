@@ -4,7 +4,8 @@ import axios from "axios"
 
 const baseUrl = import.meta.env.VITE_BASE_URL
 const swal = inject("$swal")
-const { user, token } = JSON.parse(localStorage.getItem("ttshop"))
+const { user, token } = localStorage.getItem("ttshop") ? JSON.parse(localStorage.getItem("ttshop"))  : {}
+
 
 
 const favorites = ref([])
