@@ -28,7 +28,7 @@ const submitHandler = () => {
             store.user = user
             store.token = token
             router.push({
-                name: `${ user?.role?.includes('admin') ? 'admin' : 'app'}`
+                name: `${ user?.role?.includes('admin') ? 'admin' : 'index'}`
             })
         }).catch(error=>{
             console.dir(error)
