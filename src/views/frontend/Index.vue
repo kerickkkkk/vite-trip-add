@@ -1,5 +1,5 @@
 <script setup>
-
+const {user} = JSON.parse(localStorage.getItem('ttshop')) 
 </script>
 
 <template>
@@ -13,7 +13,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav ms-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <router-link class="nav-link active" aria-current="page" to="/login">登入</router-link>
+              <router-link class="nav-link" aria-current="page" to="/products">景點</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" aria-current="page" to="/favorite">最愛</router-link>
+            </li>
+            <li v-if="user?.role.includes('admin')" class="nav-item">
+              <router-link class="nav-link" aria-current="page" to="/admin/">前往後台</router-link>
             </li>
           </ul>
         </div>
