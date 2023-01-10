@@ -39,10 +39,10 @@ onMounted(() => {
                 <router-link class="nav-link" aria-current="page" to="/favorite">最愛</router-link>
               </li>
               <li class="nav-item">
-                  <a @click="logout" class="nav-link" aria-current="page">登出</a>
+                  <a @click="logout" class="nav-link" aria-current="page" role="button">登出</a>
               </li>
             </template>
-            <template v-else="user">
+            <template v-else>
               <li class="nav-item">
                 <router-link to="/login" class="nav-link" aria-current="page">登入</router-link>                    
               </li>
