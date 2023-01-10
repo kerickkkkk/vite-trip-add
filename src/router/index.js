@@ -4,8 +4,13 @@ const routes = [
     {
         name: 'app',
         path: '/',
-        component: () => import('@/views/frontend/Index.vue'),
+        component: () => import('@/views/frontend/Navbar.vue'),
         children:[
+            {
+                name: 'index',
+                path: '',
+                component: () => import('@/views/frontend/Index.vue')
+            },
             {
                 name: 'products',
                 path: 'products',
