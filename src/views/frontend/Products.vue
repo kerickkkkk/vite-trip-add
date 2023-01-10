@@ -78,8 +78,10 @@ const checkFavorite = (productId) => {
   return (favorites.value.find( favorite => favorite.productId === productId)) === undefined
 }
 onMounted(() => {
-  getUserProductFavorite()
   getProducts();
+  if(user){
+    getUserProductFavorite()
+  }
 });
 </script>
 
@@ -96,10 +98,11 @@ onMounted(() => {
                 <div class="d-flex">
                   <h5 class="card-title">{{ product.title }}</h5>
                   <button
+                    v-if="user"
                     @click="favoriteSwitch(product.id)"
                     class="btn btn-outline-primary"
                   >
-                    <span>{{ checkFavorite(product.id) ? '取消' : '加入' }}</span>最愛
+                    <span>{{ checkFavorite(product.id) ? '加入' : '取消' }}</span>最愛
                   </button>
                 </div>
                 <p class="card-text">{{ product.content }}</p>
