@@ -87,14 +87,13 @@ router.beforeEach((to, from, next) => {
     // 寫到 pinia
     store.user = user
     store.token = token
-
     if(to.meta.requiresAuth){
         if(user && user?.role?.includes('admin')){
             next()
         }else{
             const name = user ? 'index' : 'login'
             console.log('沒有權限')
-            return {name}
+            next( {name} )
         }
     }else{
         next()
