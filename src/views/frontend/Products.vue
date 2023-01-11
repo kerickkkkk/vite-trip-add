@@ -6,9 +6,9 @@ import { useUserStore } from "@/stores/users";
 const store = useUserStore();
 const baseUrl = import.meta.env.VITE_BASE_URL;
 const swal = inject("$swal");
-const { user, token } = JSON.parse(localStorage.getItem("ttshop"));
 
 
+const {user, token} = store
 const products = ref([]);
 const favorites = ref([])
 
